@@ -17,7 +17,7 @@ export const uploadFileToB2 = async (req, res) => {
 
         //only unique file is allowed 
         //we can look it
-        await uploadModel.find()
+        //await uploadModel.find()
         // if(getFile.originalname){
         //     return res.status(400).json({
         //         message:"File name is alredy exist"

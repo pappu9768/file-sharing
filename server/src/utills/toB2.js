@@ -13,7 +13,7 @@ export const toB2 = async(file,key) => {
             ContentType:file.mimetype
         })
         const res = await b2.send(command);
-        console.log("file send to b2 successfully")
+        // console.log("file send to b2 successfully")
 
 
     } catch (error) {

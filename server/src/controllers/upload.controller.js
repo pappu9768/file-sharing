@@ -13,7 +13,7 @@ export const uploadFileToB2 = async (req, res) => {
                 success:false
             })
         }
-        console.log(getFile)
+        // console.log(getFile)
 
         //only unique file is allowed 
         //we can look it

@@ -21,9 +21,9 @@ const getDownloadUrl = async (storageKey, filename) => {
 
         const getUrl = await getSignedUrl(
             b2, getObj,
-            // {
-            //     expiresIn:300
-            // }
+            {
+                expiresIn:300
+            }
         )
 
         return getUrl

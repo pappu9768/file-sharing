@@ -1,1 +1,1 @@
-Hiii, from file sgaring using s3 bucket
+Hiii, from file sharing using s3 bucket

@@ -5,9 +5,12 @@ import api from "../api/callApi.ts";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import Loading from "../components/Loading.tsx";
 const Download = () => {
 
+    const [loading,setLoading] = useState<boolean>(false)
+    const [counts,setCounts] = useState<number>(0)
+    
     const navigate = useNavigate()
     const { transferId } = useParams<{ transferId: string }>()
     const [url, setUrl] = useState<string>('')
@@ -15,10 +18,12 @@ const Download = () => {
 
         const getUrl = async () => {
             try {
-                console.log(transferId)
+                // console.log(transferId)
+                setLoading(true)
                 const result = await api.get(`/api/v1/download/${transferId}`)
                 console.log(result)
                 setUrl(result.data.getUrl)
+                setCounts(result.data.count)
             } catch (error) {
                 console.error("Download API error:", error);
 
@@ -31,6 +36,8 @@ const Download = () => {
                 setTimeout(() => {
                     navigate("/");
                 }, 2000);
+            }finally{
+                setLoading(false)
             }
         }
         getUrl()
@@ -61,7 +68,7 @@ const Download = () => {
 
     return (
         <>
-
+            {loading && <Loading/>}
             <Navbar />
             <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-violet-50 px-4 pt-20 pb-12">
 
@@ -94,7 +101,6 @@ const Download = () => {
                                 >
                                     <FiCopy size={20} />
                                 </button>
-
                             </div>
 
                             {/* Download button */}
@@ -105,6 +111,8 @@ const Download = () => {
                                 <FiDownload size={20} />
                                 Download
                             </button>
+                            <p className="text-xl mt-4 font-semibold ">Remaining Download Counts:{counts}</p>
+
 
                         </div>
                     </div>

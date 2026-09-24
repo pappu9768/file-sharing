@@ -1,5 +1,5 @@
 
-import { useContext, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import type { ChangeEvent, DragEvent } from "react";
 
 import {
@@ -13,14 +13,14 @@ import {
 import api from '../api/callApi.ts';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { CommonContext } from "../components/Common.tsx";
 import Loading from "../components/Loading.tsx";
 
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
 
 const Upload = () => {
-    const conetxt = useContext(CommonContext)
+    // const {loading,setLoading} = useContext(CommonContext)
+    const [loading,setLoading] = useState<boolean>(false)
     const navigate = useNavigate();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -93,8 +93,8 @@ const Upload = () => {
 
     const uploadFile = async () => {
         try {
-            if(!conetxt) throw new Error("no conetxt")
-            // setLoading(true)
+            // if(!conetxt) throw new Error("no conetxt")
+            setLoading(true)
             if (!file) {
                 alert("Please provide a file first")
                 return
@@ -118,13 +118,13 @@ const Upload = () => {
         } catch (error) {
             console.log(error)
         } finally {
-            // setLoading(false)
+            setLoading(false)
         }
     }
     return (
 
         <>
-        {/* {loading && <Loading/>} */}
+        {loading && <Loading/>}
             <div className="pt-20 min-h-screen bg-linear-to-br from-indigo-50 via-white to-violet-50 px-4 py-12 text-slate-900">
                 <div className="mx-auto max-w-5xl">
 
@@ -194,9 +194,9 @@ const Upload = () => {
                                         <option value="">
                                             Select download count
                                         </option>
+                                        <option value="3">3 downloads</option>
                                         <option value="5">5 downloads</option>
                                         <option value="10">10 downloads</option>
-                                        <option value="custom">Custom</option>
                                     </select>
 
                                     <p className="text-xs text-gray-500">

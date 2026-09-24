@@ -8,7 +8,7 @@ const App = () => {
     <>
       <Routes>
         <Route index element={<Home />} />
-        <Route path="/download" element={<Download/>}/>
+        <Route path="/download/:transferId" element={<Download/>}/>
 
       </Routes>
         <ToastContainer position="top-right"/>

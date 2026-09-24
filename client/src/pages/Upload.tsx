@@ -105,13 +105,14 @@ const Upload = () => {
                 return
             }
             const formData = new FormData()
+            console.log(file)
             formData.append("file", file)
             formData.append("maxDownloads", maxDownloadCounts)
             const res = await api.post('/api/v1/upload', formData)
             console.log(res)
             if (res.data?.success) {
                 toast.success(res.data?.message)
-                navigate('/download')
+                navigate(`/download/${res.data?.uploadedSaveFile?.transferId}`)
             }
 
         } catch (error) {

@@ -15,6 +15,11 @@ app.use(cors({
 await connectDb()
 app.use('/api/v1',uploadRoutes);
 
+app.get('/healthcheck',(req,res) => {
+  return res.json({
+    message:"All working properly"
+  })
+})
 
 const port = process.env.PORT || 3000
 app.listen(port, "0.0.0.0", () => {

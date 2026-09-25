@@ -6,11 +6,12 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading.tsx";
+import axios from "axios";
 const Download = () => {
 
-    const [loading,setLoading] = useState<boolean>(false)
-    const [counts,setCounts] = useState<number>(0)
-    
+    const [loading, setLoading] = useState<boolean>(false)
+    const [counts, setCounts] = useState<number>(0)
+
     const navigate = useNavigate()
     const { transferId } = useParams<{ transferId: string }>()
     const [url, setUrl] = useState<string>('')
@@ -24,19 +25,21 @@ const Download = () => {
                 console.log(result)
                 setUrl(result.data.getUrl)
                 setCounts(result.data.count)
-            } catch (error) {
-                console.error("Download API error:", error);
+            } catch (error: unknown) {
+                // console.error("Download API error:", error);
 
-                const message =
-                    error?.response?.data?.message ||
-                    "Unable to generate download link";
+                if (axios.isAxiosError(error)) {
+                    const message =
+                        error?.response?.data?.message ||
+                        "Unable to generate download link";
 
-                toast.error(message);
+                    toast.error(message);
+                }
 
                 setTimeout(() => {
                     navigate("/");
                 }, 2000);
-            }finally{
+            } finally {
                 setLoading(false)
             }
         }
@@ -68,7 +71,7 @@ const Download = () => {
 
     return (
         <>
-            {loading && <Loading/>}
+            {loading && <Loading />}
             <Navbar />
             <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-violet-50 px-4 pt-20 pb-12">
 

@@ -22,7 +22,7 @@ const Download = () => {
                 // console.log(transferId)
                 setLoading(true)
                 const result = await api.get(`/api/v1/download/${transferId}`)
-                console.log(result)
+                // console.log(result)
                 setUrl(result.data.getUrl)
                 setCounts(result.data.count)
             } catch (error: unknown) {
@@ -43,8 +43,10 @@ const Download = () => {
                 setLoading(false)
             }
         }
-        getUrl()
-    }, [])
+        if(transferId){
+            getUrl()
+        }
+    }, [transferId,navigate])
 
     const handleCopy = async () => {
         try {
@@ -59,7 +61,7 @@ const Download = () => {
 
     const handleDownload = () => {
         // Connect your download API here
-        console.log("Download clicked");
+        // console.log("Download clicked");
         try {
             if (!url) return toast.error("Please provide link first")
 

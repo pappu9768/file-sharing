@@ -10,7 +10,7 @@ const app = express();
 
 // app.use(express.json());
 app.use(cors({
-    origin:process.env.CLIENT_URL
+    origin:"https://file-sharing-q19gh2h8o-pawan-shahs-projects-d474c1b9.vercel.app"
 }))
 await connectDb()
 app.use('/api/v1',uploadRoutes);
